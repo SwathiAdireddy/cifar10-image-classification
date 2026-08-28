@@ -1,51 +1,14 @@
 # 🖼️ CIFAR-10 Image Classification Using MobileNetV2
 
-An end-to-end deep learning project that classifies images into 10 different categories using **Transfer Learning with MobileNetV2**.
+An image classification project that uses **Transfer Learning with MobileNetV2** to classify CIFAR-10 images into 10 different classes.
 
-The project includes dataset preprocessing, model training, evaluation, performance analysis, and deployment using a Streamlit web application.
-
----
-
-## 🚀 Live Demo
-
-(Add your Streamlit Cloud link here)
+The project covers image preprocessing, model training, evaluation, and deployment using **Streamlit**.
 
 ---
 
-# 📌 Project Overview
+## 📌 About the Project
 
-Image classification is a fundamental computer vision task where a model learns to identify and categorize images into predefined classes.
-
-In this project, the **CIFAR-10 dataset** is used to train an image classification model using **MobileNetV2**, a pretrained convolutional neural network originally trained on ImageNet.
-
-Transfer learning is used to reuse the pretrained MobileNetV2 features while training a new classification head specifically for the 10 CIFAR-10 classes.
-
-The trained model is deployed using Streamlit, allowing users to upload an image and receive a predicted class along with the prediction confidence.
-
----
-
-# 🎯 Objectives
-
-- Understand the fundamentals of image classification.
-- Preprocess image data for deep learning.
-- Apply transfer learning using MobileNetV2.
-- Train a classifier for the CIFAR-10 dataset.
-- Evaluate model performance using multiple metrics.
-- Visualize classification performance using a confusion matrix.
-- Deploy the trained model using Streamlit.
-
----
-
-# 📂 Dataset
-
-The project uses the **CIFAR-10 dataset**.
-
-The dataset contains **60,000 RGB images** of size 32 × 32 belonging to 10 different classes.
-
-- 50,000 training images
-- 10,000 testing images
-
-## Classes
+The **CIFAR-10 dataset** contains 60,000 RGB images belonging to 10 classes:
 
 - Airplane
 - Automobile
@@ -58,72 +21,139 @@ The dataset contains **60,000 RGB images** of size 32 × 32 belonging to 10 diff
 - Ship
 - Truck
 
----
+The original images are **32 × 32 pixels**. Since MobileNetV2 works with larger input images, the images were resized to **96 × 96** before being passed to the model.
 
-# 🔍 Data Preprocessing
-
-The images were prepared before being passed to MobileNetV2.
-
-The following preprocessing steps were performed:
-
-- Converted images to `float32`.
-- Resized images from **32 × 32** to **96 × 96**.
-- Applied MobileNetV2-specific preprocessing.
-- Split the training data into training and validation sets.
-- Created efficient TensorFlow datasets using `tf.data`.
-- Batched the data with a batch size of 32.
-- Used prefetching to improve data pipeline performance.
+A pretrained **MobileNetV2** model with ImageNet weights was used as the feature extractor. Its pretrained layers were frozen, and a custom classification head was added for the 10 CIFAR-10 classes.
 
 ---
 
-# 🛠️ Technologies Used
+## 🧠 Model Architecture
 
-## Programming Language
+```text
+MobileNetV2
+     ↓
+Global Average Pooling
+     ↓
+Dense (128, ReLU)
+     ↓
+Dropout (0.3)
+     ↓
+Dense (10, Softmax)
+```
+
+### Model Details
+
+- **Base Model:** MobileNetV2
+- **Pretrained Weights:** ImageNet
+- **Input Size:** 96 × 96 × 3
+- **Batch Size:** 32
+- **Epochs:** 5
+- **Optimizer:** Adam
+- **Loss:** Sparse Categorical Crossentropy
+- **Trainable Parameters:** 165,258
+- **Total Parameters:** 2,423,242
+
+---
+
+## 📊 Results
+
+The model achieved a **final test accuracy of 86.34%**.
+
+---
+
+## 🖥️ Streamlit Application
+
+The trained model was integrated into a **Streamlit web application**.
+
+The application allows users to:
+
+- Upload an image
+- Process the image
+- Predict its CIFAR-10 class
+- Display the prediction confidence
+
+### Example
+
+```text
+Actual: Cat
+Predicted: Cat
+Confidence: 91.20%
+```
+
+---
+
+## 🛠️ Technologies Used
 
 - Python
-
-## Libraries
-
 - TensorFlow
 - Keras
 - NumPy
 - Scikit-learn
 - Matplotlib
 - Seaborn
-
-## Deep Learning
-
-- Convolutional Neural Networks
-- Transfer Learning
-- MobileNetV2
-
-## Deployment
-
+- Pillow
 - Streamlit
 
 ---
 
-# ⚙️ Machine Learning Workflow
+## 📂 Project Structure
 
 ```text
-CIFAR-10 Dataset
-        ↓
-Data Preprocessing
-        ↓
-Train-Validation Split
-        ↓
-Image Resizing
-        ↓
-MobileNetV2 Preprocessing
-        ↓
-Pretrained MobileNetV2
-        ↓
-Freeze Pretrained Layers
-        ↓
-Add Custom Classification Head
-        ↓
-Model Training
-        ↓
-Model Evaluation
-        ↓
-Streamlit Deployment
+CIFAR10-Image-Classification/
+│
+├── app.py
+├── cifar10_mobilenetv2.weights.h5
+├── requirements.txt
+├── README.md
+├── LICENSE
+└── .gitignore
+```
+
+---
+
+## ▶️ Run the Project
+
+Clone the repository:
+
+```bash
+git clone https://github.com/SwathiAdireddy/cifar10-image-classification.git
+```
+
+Go to the project directory:
+
+```bash
+cd cifar10-image-classification
+```
+
+Install the required dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Run the Streamlit application:
+
+```bash
+streamlit run app.py
+```
+
+---
+
+## 📚 Key Learning
+
+This project helped me understand:
+
+- Image classification using deep learning
+- CNN-based feature extraction
+- Transfer learning with MobileNetV2
+- Image preprocessing
+- Model evaluation
+- Confusion matrix analysis
+- Saving and loading model weights
+- Building a Streamlit ML application
+
+---
+
+## 👩‍💻 Author
+
+**Swathi**
